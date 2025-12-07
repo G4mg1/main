@@ -1,3 +1,45 @@
+--- getgenv().MoonBackdoor:ASync(".S_class")
+--- moon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 --[=[
  d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
 88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
@@ -11,7 +53,7 @@
 local G2L = {};
 
 -- StarterGui.ScreenGui
-G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"] = Instance.new("ScreenGui", game.CoreGui);
 G2L["1"]["IgnoreGuiInset"] = true;
 G2L["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
