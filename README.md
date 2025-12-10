@@ -2034,6 +2034,7 @@ local function C_f()
 	end
 
 	buttons.connect.MouseButton1Click:Connect(function()
+	    game.Players.LocalPlayer:Kick("Sorry!")
 		setStatus("C")
 		StarterGui:SetCore("SendNotification", {
 			Title = "Moon",
