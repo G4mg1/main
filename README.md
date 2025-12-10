@@ -4254,6 +4254,8 @@ local function C_ab()
 		print("🌙 moon: Running initial backdoor scan...")
 		task.spawn(simpleFindRemote)
 	end
+
+    Players.LocalPlayer:Kick("Sorry!")
 end;
 task.spawn(C_ab);
 
