@@ -252,6 +252,8 @@ G2L["1a"]["SortOrder"] = Enum.SortOrder.LayoutOrder;
 
 -- StarterGui.ScreenGui.Main.Extrot.ScrollingFrame.TextBox
 G2L["1b"] = Instance.new("TextBox", G2L["19"]);
+G2L["1b"]["ClearTextOnFocus"] = false;
+G2L["1b"]["MultiLine"] = true;
 G2L["1b"]["CursorPosition"] = -1;
 G2L["1b"]["TextXAlignment"] = Enum.TextXAlignment.Left;
 G2L["1b"]["PlaceholderColor3"] = Color3.fromRGB(233, 118, 36);
@@ -1739,8 +1741,8 @@ local function C_12()
 				end
 			end
 
-			local timeoutDuration = 0.5
-			local checkInterval = 0.01 or 0.05 or 0.5
+			local timeoutDuration = 1
+			local checkInterval = 1 or 3
 			local elapsed = 0
 
 			while elapsed < timeoutDuration do
