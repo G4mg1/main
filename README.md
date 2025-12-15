@@ -1,10 +1,5 @@
 --[=[
- d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
-88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
-88      88    88    88            odD'      88      88    88 88ooo88 
-88  ooo 88    88    88          .88'        88      88    88 88~~~88 
-88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
- Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+ Moon
 ]=]
 
 -- Instances: 121 | Scripts: 6 | Modules: 16 | Tags: 1
@@ -5307,7 +5302,8 @@ local function C_5()
 	}
 
 
-	local codeBar = script.Parent.Content.Executor.Codebox.Textbox.Main.Textbox.Input
+	local codeBar = script.Parent.Content.Executor.Codebox:WaitForChild("Textbox"):WaitForChild("Main"):WaitForChild("Textbox"):WaitForChild("Input")
+
 
 
 	local SAFE_LOCATIONS = {
@@ -6129,4 +6125,4 @@ local function C_37()
 end;
 task.spawn(C_37);
 
-return G2L["1"], require; 
+return G2L["1"], require;
